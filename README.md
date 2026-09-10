@@ -28,9 +28,7 @@ Stellar Pay is a modern, non-custodial XLM payment dApp that connects with Freig
 | Resource | Link |
 |---|---|
 | 📦 **GitHub Repository** | [https://github.com/ratnadip03/stellar-pay-dapp](https://github.com/ratnadip03/stellar-pay-dapp) |
-| 🚀 **Live Demo** | `ADD_DEPLOYED_LINK_HERE` |
-
-<!-- Replace ADD_DEPLOYED_LINK_HERE with the final deployment URL -->
+| 🚀 **Live Demo (Vercel)** | 🔥 **[https://stellar-pay-dapp-dusky.vercel.app/](https://stellar-pay-dapp-dusky.vercel.app/)** ⚡ |
 
 ---
 
@@ -397,7 +395,7 @@ This project was built for the **Stellar Frontend Challenge — Level 1 (White B
 
 ## 🔮 Future Improvements
 
-- [ ] Add live production deployment link
+- [x] Production deployment on Vercel: [https://stellar-pay-dapp-dusky.vercel.app/](https://stellar-pay-dapp-dusky.vercel.app/)
 - [ ] Add multi-asset support (USDC, custom Stellar tokens)
 - [ ] Implement QR code camera scanner for recipient addresses
 - [ ] Add persistent transaction history via indexer/local storage
@@ -409,19 +407,12 @@ This project was built for the **Stellar Frontend Challenge — Level 1 (White B
 
 ## 🌐 Live Demo
 
-> 🚀 **Live Application:** `ADD_DEPLOYED_LINK_HERE`
+> 🚀 **Live Application:** 🔥 **[https://stellar-pay-dapp-dusky.vercel.app/](https://stellar-pay-dapp-dusky.vercel.app/)** ⚡
 
 ```text
-Deployment Platform: ADD_PLATFORM_HERE
-Status: Coming soon
+Deployment Platform: Vercel
+Status: Live & Operational 🟢
 ```
-
-<!--
-When deployed, replace:
-ADD_DEPLOYED_LINK_HERE
-ADD_PLATFORM_HERE
-with the actual deployment URL and platform (e.g. Vercel, Netlify, Cloudflare Pages).
--->
 
 ---
 
