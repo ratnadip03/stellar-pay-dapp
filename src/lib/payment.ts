@@ -149,7 +149,7 @@ export async function executePaymentTransaction(
       // ignore fee fetch error and use fallback
     }
 
-    // Step 2: Build operation
+    // Step 2: Build operation (probing non-existent accounts to use createAccount vs payment)
     let operation: ReturnType<typeof Operation.payment> | ReturnType<typeof Operation.createAccount>;
     let isCreateAccount = false;
 
