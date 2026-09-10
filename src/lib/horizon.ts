@@ -73,6 +73,10 @@ export async function probeAccountExists(address: string): Promise<boolean> {
 /**
  * Fund an account on Stellar Testnet using Friendbot.
  */
+/**
+ * Fund account using Stellar Testnet Friendbot.
+ * Friendbot returns HTTP 400 if the account is already funded, which is handled gracefully.
+ */
 export async function fundWithFriendbot(address: string): Promise<{ success: boolean; message: string }> {
   try {
     const response = await fetch(`${FRIENDBOT_URL}/?addr=${encodeURIComponent(address)}`);
