@@ -1,84 +1,435 @@
-# Stellar Testnet Payment dApp
+# ⚡ Stellar Pay
 
-A simple, secure, and responsive Stellar Testnet payment decentralized application built for the **Rise In Stellar Frontend Challenge — Level 1 White Belt**. The application connects seamlessly with the Freighter browser wallet, displays real-time XLM balances from the Horizon server, calculates minimum reserve requirements using BigInt stroop precision, and builds, signs, and submits payments or account creations on the Stellar Testnet.
+> Simple XLM Payment dApp built on Stellar Testnet.
 
-## Live Demo
+Stellar Pay is a modern, non-custodial XLM payment dApp that connects with Freighter, displays the connected wallet balance, validates payment details, requests transaction approval through Freighter, submits payments on Stellar Testnet, and provides transaction and StellarExpert verification feedback.
 
-<!-- TODO: paste deployed URL here -->
+---
 
-## Features
+[![Stellar](https://img.shields.io/badge/Stellar-Testnet-main?style=for-the-badge&logo=stellar&logoColor=white&color=141722)](https://stellar.org)
+[![React](https://img.shields.io/badge/React-19.2-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://react.dev)
+[![TypeScript](https://img.shields.io/badge/TypeScript-6.0-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org)
+[![Vite](https://img.shields.io/badge/Vite-8.3-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind-4.3-38BDF8?style=for-the-badge&logo=tailwindcss&logoColor=white)](https://tailwindcss.com)
+[![Freighter](https://img.shields.io/badge/Freighter-v6.0-FF4081?style=for-the-badge)](https://www.freighter.app/)
 
-- **Freighter Wallet Integration**: Automatic extension detection, session restoration via local persistence, network guard warning against non-testnet configurations, and app-level disconnect handling.
-- **Horizon Account Management**: Direct querying of native XLM balances, dynamic calculation of account minimum reserves (`(2 + subentries + sponsoring - sponsored) * 0.5 XLM`), and integrated single-click Testnet Friendbot funding for new accounts.
-- **Robust Payment Validation**: Inline validation for Stellar public keys (`G...`), explicit rejection of unsupported Muxed (`M...`) and Contract (`C...`) addresses, self-payment prevention, integer stroop precision math, and byte-length text memo validation (max 28 bytes).
-- **Smart Account Handling**: Probing destination accounts before transaction construction to automatically substitute `createAccount` operations with a 1.0 XLM minimum floor when paying unfunded addresses. Automatic retry mechanism if an account is funded mid-flight.
-- **Transaction Lifecycle Feedback**: Clear multi-step status feedback (`idle`, `building`, `awaiting-signature`, `submitting`, `success`, `error`), Explorer links for verified transaction hashes, and distinct handling of 504 server timeouts.
-- **Horizon Error Code Parsing**: Precise mapping of internal transaction and operation result codes (`tx_insufficient_balance`, `op_underfunded`, `op_low_reserve`, `op_no_destination`) to human-friendly feedback.
+<p align="center">
+  <b>🔐 Non-Custodial</b> &nbsp;•&nbsp; 
+  <b>🌐 Stellar Testnet</b> &nbsp;•&nbsp; 
+  <b>💸 XLM Payments</b> &nbsp;•&nbsp; 
+  <b>🦊 Freighter Wallet</b> &nbsp;•&nbsp; 
+  <b>🔎 On-Chain Verification</b>
+</p>
 
-## Tech Stack
+---
 
-- **Framework**: React 19 + TypeScript + Vite 6
-- **Styling**: Tailwind CSS v4 + Lucide React Icons
-- **Stellar Libraries**: `@stellar/stellar-sdk` v13, `@stellar/freighter-api` v6
+## 🔗 Project Links
 
-## Prerequisites
+| Resource | Link |
+|---|---|
+| 📦 **GitHub Repository** | [https://github.com/ratnadip03/stellar-pay-dapp](https://github.com/ratnadip03/stellar-pay-dapp) |
+| 🚀 **Live Demo** | `ADD_DEPLOYED_LINK_HERE` |
 
-- **Node.js**: Node version `^20.19.0` or `>=22.12.0` (as required by current Vite 6 engines). An `.nvmrc` file is provided in the repository root.
-- **Freighter Extension**: The [Freighter Browser Wallet](https://www.freighter.app/) extension installed in your browser.
-- **Network Setting**: Freighter switched to **Testnet** (Settings → Network → Testnet).
+<!-- Replace ADD_DEPLOYED_LINK_HERE with the final deployment URL -->
 
-## Setup
+---
 
-1. Clone the repository:
+## 🖥️ Application Preview
+
+Below is the step-by-step user journey of Stellar Pay during testing on the Stellar Testnet:
+
+### 1. 🔗 Freighter Wallet Connection
+
+![Stellar Pay — Freighter Connection](screenshots/01-freighter-connection.png)
+
+*Stellar Pay requests permission to connect to the user's Freighter wallet on Stellar Testnet.*
+
+---
+
+### 2. 🔐 Wallet Connected
+
+![Stellar Pay — Wallet Connected](screenshots/02-wallet-connected.png)
+
+*After connection, Stellar Pay displays the active Freighter wallet and confirms the Stellar Testnet network.*
+
+---
+
+### 3. 💰 XLM Balance
+
+![Stellar Pay — XLM Balance](screenshots/03-balance-displayed.png)
+
+*The connected Testnet wallet balance is retrieved directly from Stellar Horizon and displayed in real time.*
+
+---
+
+### 4. 💸 Payment Form
+
+![Stellar Pay — Payment Form](screenshots/04-payment-form.png)
+
+*Users enter the recipient's Stellar public address, XLM amount, and optional memo before submitting.*
+
+---
+
+### 5. ✍️ Freighter Confirmation
+
+![Stellar Pay — Freighter Confirmation](screenshots/05-freighter-confirmation.png)
+
+*The transaction parameters (amount, recipient, fee, memo) are reviewed and securely signed in Freighter.*
+
+---
+
+### 6. ✅ Transaction Successful
+
+![Stellar Pay — Transaction Success](screenshots/06-transaction-success.png)
+
+*After successful submission to Testnet Horizon, Stellar Pay displays the transaction hash and explorer links.*
+
+---
+
+### 7. 🔎 On-Chain Verification
+
+![Stellar Pay — StellarExpert Verification](screenshots/07-stellarexpert-verification.png)
+
+*The completed payment can be independently verified on the Stellar Testnet blockchain via StellarExpert.*
+
+---
+
+## ✨ Features
+
+### 🔐 Wallet Integration
+- **Freighter Wallet Connection**: Connect with one click via `@stellar/freighter-api`.
+- **Address Formatting**: Displays truncated public key with quick full-address copy.
+- **Disconnect & Switch**: Seamlessly disconnect or switch accounts.
+- **Network Verification**: Detects and enforces Stellar Testnet environment.
+
+### 💰 Live XLM Balance
+- **Horizon Balance Fetching**: Fetches live XLM balances directly from Stellar Horizon RPC.
+- **Balance Refresh**: Quick refresh button to update account balance post-transfer.
+- **StellarExpert Wallet Link**: Direct link to inspect account on StellarExpert explorer.
+
+### 💸 XLM Payments
+- **Address Validation**: Validates recipient Stellar public key structure (`G...`).
+- **Amount & Max Button**: Input custom amount or auto-fill available balance minus base fee / minimum reserve.
+- **Memo Support**: Support for optional text memos (up to 28 bytes).
+- **Self-Send Prevention**: Prevents sending funds to the connected wallet itself.
+- **Reserve Check**: Prevents spending below the required account minimum reserve.
+
+### ✍️ Secure Non-Custodial Signing
+- **Freighter Signing**: Transactions are constructed locally and signed safely inside Freighter.
+- **Private Key Protection**: Secret keys never leave the user's Freighter extension.
+
+### 📊 Real-Time Transaction Feedback
+- **Lifecycle Feedback**: Clear state indicators for validation, preparation, Freighter popup, and Horizon submission.
+- **Transaction Hash & Copy**: Displays submission hash with copy-to-clipboard functionality.
+- **Explorer Links**: Direct verification button linking to StellarExpert Testnet explorer.
+- **Session Activity**: Local history tracking payments completed in the current session.
+
+---
+
+## 🔄 How It Works
+
+```text
+Connect Freighter
+       ↓
+Verify Stellar Testnet
+       ↓
+Fetch XLM Balance
+       ↓
+Enter Recipient & Amount
+       ↓
+Validate Form & Reserve
+       ↓
+Confirm in Freighter
+       ↓
+Submit to Stellar Testnet
+       ↓
+Transaction Result Modal
+       ↓
+Verify on StellarExpert
+```
+
+1. **Connect Wallet**: User clicks "Connect Wallet" to request connection permission via Freighter API.
+2. **Network Check**: App verifies that Freighter is configured to Stellar Testnet.
+3. **Fetch Balance**: Queries Horizon Testnet server (`https://horizon-testnet.stellar.org`) for native XLM balance.
+4. **Enter Details**: User inputs destination address, XLM amount, and optional memo.
+5. **Validation**: Client verifies address format, positive amount, available balance, and minimum reserve requirements.
+6. **Sign Transaction**: Stellar SDK builds the payment transaction operation and requests signature from Freighter.
+7. **Submit & Verify**: Signed XDR payload is submitted to Stellar Testnet; hash and explorer links are returned.
+
+---
+
+## 🛠️ Tech Stack
+
+| Technology | Version | Purpose |
+|---|---|---|
+| **React** | `^19.2.8` | Frontend UI framework |
+| **TypeScript** | `~6.0.2` | Strong type safety and developer tooling |
+| **Vite** | `^8.3.0` | Dev server and optimized production bundler |
+| **Tailwind CSS** | `^4.3.3` | Utility-first responsive styling |
+| **Stellar SDK** | `^15.1.0` | Stellar transaction building and Horizon RPC interaction |
+| **Freighter API** | `^6.0.1` | Wallet connection and non-custodial transaction signing |
+| **Lucide React** | `^1.44.0` | Modern UI icon set |
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+Ensure you have installed:
+* [Node.js](https://nodejs.org/) (v18+ recommended)
+* `npm` or `yarn`
+* [Freighter Wallet Browser Extension](https://www.freighter.app/)
+
+### Installation
+
+1. **Clone the repository**:
    ```bash
-   git clone https://github.com/<<<YOUR_GITHUB_USERNAME>>>/stellar-payment-dapp.git
-   cd stellar-payment-dapp
+   git clone https://github.com/ratnadip03/stellar-pay-dapp.git
+   cd stellar-pay-dapp
    ```
 
-2. Install dependencies:
+2. **Install dependencies**:
    ```bash
    npm install
    ```
 
-3. Start the local development server:
+3. **Start local development server**:
    ```bash
    npm run dev
    ```
 
-4. Open your browser and navigate to `http://localhost:5173`.
+4. **Open the App**:
+   Open the local development URL (e.g. `http://localhost:5173`) displayed in your terminal.
 
-## How to Use
+---
 
-1. Click **Connect Freighter Wallet** in the top navigation header and approve access in the extension popup.
-2. If your account is unfunded (0 XLM), click the **Fund with Friendbot** button to receive testnet XLM instantly.
-3. Enter a valid destination Stellar public key starting with `G...` (for manual testing, you can use `<<<YOUR_G_ADDRESS>>>`).
-4. Enter an XLM amount (or click **Max** to automatically calculate the maximum safe spendable amount after reserves and fees).
-5. Optionally add a text memo (max 28 bytes).
-6. Click **Send XLM Payment** and approve the transaction in the Freighter popup window.
-7. View step-by-step progress, copy the resulting transaction hash, or click the Stellar Expert explorer link to view the transaction on-chain.
+## 🧪 Stellar Testnet Setup
 
-## Screenshots
+To test Stellar Pay without real funds:
 
-![Wallet Connected](screenshots/01-wallet-connected.png)
-*1. Wallet connected state showing Freighter account address and network status badge.*
+1. **Install Freighter**: Download and install the Freighter browser extension.
+2. **Switch to Testnet**: Open Freighter settings and set the active network to **Test Net**.
+3. **Create/Import Account**: Set up a test wallet account inside Freighter.
+4. **Fund Account**: Use [Stellar Friendbot](https://laboratory.stellar.org/#account-creator) to request free Testnet XLM.
+5. **Connect**: Launch Stellar Pay, click **Connect Wallet**, and approve the connection in Freighter.
 
-![Balance Displayed](screenshots/02-balance-displayed.png)
-*2. Native XLM balance display with active reserve stats and Friendbot funding controls.*
+> ⚠️ **Testnet Only:** Stellar Pay is strictly configured for Stellar Testnet. Testnet XLM has no real-world monetary value. Never enter real Mainnet secret keys or funds while using this application.
 
-![Transaction Sent](screenshots/03-transaction-sent.png)
-*3. Payment form filled with destination address, calculated Max amount, and memo.*
+---
 
-![Transaction Result](screenshots/04-transaction-result.png)
-*4. Successful transaction feedback dialog displaying full transaction hash and Stellar Expert explorer link.*
+## 💸 Sending XLM Payments
 
-## How It Works
+1. Connect your Freighter wallet set to **Test Net**.
+2. Confirm that your balance is retrieved and displayed.
+3. Enter a valid recipient Stellar public address (`G...`).
+4. Enter the amount of XLM to send (or click **MAX**).
+5. (Optional) Enter a brief text memo.
+6. Click **Send XLM Payment**.
+7. Review transaction details in the Freighter popup window.
+8. Click **Confirm** in Freighter to sign the transaction.
+9. View the **Transaction Successful!** notification with transaction hash.
+10. Click **View on StellarExpert Explorer** to view the on-chain confirmation.
 
-The dApp operates in a fully non-custodial manner. When a payment is initiated, the application queries the Horizon Testnet server to construct an unsigned XDR transaction containing either a `payment` or `createAccount` operation. The unsigned transaction XDR is passed to the Freighter extension via `@stellar/freighter-api` for client-side signing. Once signed by the user, the application receives the signed XDR from Freighter and submits it directly to the Horizon server. Secret keys never leave the Freighter browser extension and are never accessible to the dApp codebase.
+---
 
-## Testnet Warning
+## 🧠 Technical Implementation
 
-> **Note**: This application operates exclusively on the Stellar Testnet. The Stellar Testnet is a test environment that is periodically reset by the Stellar Development Foundation. A network reset wipes all funded accounts, transactions, and balances, requiring accounts to be re-funded via Friendbot and causing old transaction explorer links to become invalid.
+* **Stellar SDK Integration**: Uses `@stellar/stellar-sdk` to fetch account details from Horizon Testnet (`https://horizon-testnet.stellar.org`) and build Stellar `Operation.payment` transactions.
+* **Freighter API Integration**: Utilizes `@stellar/freighter-api` methods (`isConnected`, `requestAccess`, `getAddress`, `getNetwork`, `signTransaction`) for non-custodial wallet connection and transaction signing.
+* **Network Verification**: Ensures transaction submission is blocked if Freighter is connected to Mainnet or an unsupported network.
+* **Fee & Stroops Math**: Converts XLM amounts into Stroops (`1 XLM = 10,000,000 Stroops`) using safe arithmetic to prevent floating-point inaccuracies.
+* **Form & Reserve Validation**: Enforces minimum account reserve (1 XLM base reserve) plus base fee (`0.0001 XLM`) to prevent account lockup.
+* **Explorer URL Generation**: Constructs dynamic StellarExpert URLs (`https://stellar.expert/explorer/testnet/tx/{hash}`) for instant verification.
 
-## License
+---
 
-This project is licensed under the [MIT License](LICENSE).
+## 📡 Transaction Lifecycle
+
+```text
+Idle (Form ready)
+  ↓
+Validating (Checking address, amount & reserve)
+  ↓
+Preparing (Building Stellar transaction XDR)
+  ↓
+Confirm In Freighter (Waiting for user signature in wallet popup)
+  ↓
+Submitting (Sending signed XDR to Stellar Horizon)
+  ↓
+Success (Returns transaction hash & StellarExpert link)
+```
+
+If an error occurs at any stage:
+```text
+Submitting / Preparing / Freighter
+  ↓
+Error Feedback Modal (Displays detailed error message with retry option)
+```
+
+---
+
+## 🛡️ Error Handling
+
+Stellar Pay handles common edge cases gracefully:
+
+* **Freighter Not Installed**: Prompts user to install the extension.
+* **Wrong Network**: Warns user if Freighter is set to Mainnet instead of Test Net.
+* **Invalid Recipient Address**: Validates character length and checksum of `G...` Stellar public keys.
+* **Self-Send Attempt**: Blocks attempt to transfer funds back to the connected wallet.
+* **Insufficient Balance**: Checks account balance before requesting signature.
+* **Reserve Violation**: Ensures account retains minimum 1 XLM reserve required by Stellar Protocol.
+* **User Rejection**: Catches Freighter popup cancellation gracefully without crashing state.
+* **Unfunded Recipient Account**: Identifies missing destination account and provides helpful error guidance.
+
+---
+
+## 🔒 Security & Safety
+
+* **100% Non-Custodial**: Private keys stay locked safely inside the Freighter wallet extension.
+* **No Secret Key Exposure**: Stellar Pay never asks for, receives, or stores secret keys, seed phrases, or passwords.
+* **Client-Side Processing**: Transactions are built in the browser and signed directly by Freighter.
+* **Testnet Guardrails**: Built-in environment checks ensure operations take place on Stellar Testnet.
+
+---
+
+## 📁 Project Structure
+
+```text
+stellar-pay-dapp/
+├── public/
+│   └── vite.svg
+├── screenshots/
+│   ├── 01-freighter-connection.png
+│   ├── 02-wallet-connected.png
+│   ├── 03-balance-displayed.png
+│   ├── 04-payment-form.png
+│   ├── 05-freighter-confirmation.png
+│   ├── 06-transaction-success.png
+│   └── 07-stellarexpert-verification.png
+├── src/
+│   ├── assets/
+│   ├── components/
+│   │   ├── BalanceCard.tsx
+│   │   ├── Header.tsx
+│   │   ├── NetworkNotice.tsx
+│   │   ├── SendForm.tsx
+│   │   ├── TxFeedback.tsx
+│   │   └── TxHistory.tsx
+│   ├── lib/
+│   │   ├── errors.ts
+│   │   ├── freighter.ts
+│   │   ├── horizon.ts
+│   │   └── payment.ts
+│   ├── types/
+│   │   └── index.ts
+│   ├── App.css
+│   ├── App.tsx
+│   ├── constants.ts
+│   ├── index.css
+│   └── main.tsx
+├── .gitignore
+├── .nvmrc
+├── .oxlintrc.json
+├── index.html
+├── LICENSE
+├── package.json
+├── package-lock.json
+├── README.md
+├── tsconfig.app.json
+├── tsconfig.json
+├── tsconfig.node.json
+└── vite.config.ts
+```
+
+---
+
+## ✅ Testing & Verification
+
+Automated compilation and manual workflow verification results:
+
+* **TypeScript Type Checking**: `npx tsc -b --noEmit` — **Passed (0 errors)**
+* **Production Build**: `npm run build` — **Passed (1863 modules transformed)**
+* **Freighter Wallet Connection**: Tested and verified.
+* **Balance Display & Refresh**: Tested and verified against Horizon RPC.
+* **Payment Form Validation**: Validated recipient format, amounts, and reserve checks.
+* **99 XLM Payment Transfer**: Executed successfully on Stellar Testnet.
+* **Freighter Transaction Signing**: Confirmed via extension popup.
+* **On-Chain Verification**: Verified via StellarExpert Testnet explorer (Tx Hash: `5d566b6cdc7652729484e0f62ee2fcfeca053de33a1ace4a97c15666fdd34719`).
+
+---
+
+## 🎨 UI / UX Design
+
+Stellar Pay features a modern, dark-themed user interface:
+* **Dark Aesthetics**: Deep obsidian backdrop (`#0B0F19`) with purple and cyan gradient accents.
+* **Stellar Branding**: Clean typography and official Stellar network badge indicators.
+* **Status Badges**: Real-time network and wallet connection indicators.
+* **Action Card Layout**: Distinct cards for wallet balance, payment inputs, and session history.
+* **Modals & Overlays**: Clean popups for transaction progress, success hash display, and error handling.
+
+---
+
+## 🏆 Stellar Frontend Challenge — Level 1
+
+This project was built for the **Stellar Frontend Challenge — Level 1 (White Belt)**. It demonstrates core decentralized application concepts on the Stellar network:
+
+* Connecting a web application to a non-custodial browser wallet (Freighter).
+* Fetching account state and XLM balances from Stellar Horizon RPC.
+* Constructing and signing native Stellar payment operations.
+* Safely submitting transactions to Stellar Testnet.
+* Delivering clear UI feedback and providing on-chain verification links.
+
+---
+
+## 🔮 Future Improvements
+
+- [ ] Add live production deployment link
+- [ ] Add multi-asset support (USDC, custom Stellar tokens)
+- [ ] Implement QR code camera scanner for recipient addresses
+- [ ] Add persistent transaction history via indexer/local storage
+- [ ] Add address book for saved recipient contacts
+- [ ] Add internationalization (i18n) support
+- [ ] Implement automated end-to-end Playwright tests
+
+---
+
+## 🌐 Deployment
+
+> 🚀 **Live Application:** `ADD_DEPLOYED_LINK_HERE`
+
+```text
+Deployment Platform: ADD_PLATFORM_HERE
+Status: Coming soon
+```
+
+<!--
+When deployed, replace:
+ADD_DEPLOYED_LINK_HERE
+ADD_PLATFORM_HERE
+with the actual deployment URL and platform (e.g. Vercel, Netlify, Cloudflare Pages).
+-->
+
+---
+
+## 📦 Repository
+
+* **GitHub Repository**: [https://github.com/ratnadip03/stellar-pay-dapp](https://github.com/ratnadip03/stellar-pay-dapp)
+* **Clone Command**:
+  ```bash
+  git clone https://github.com/ratnadip03/stellar-pay-dapp.git
+  ```
+
+---
+
+## 🤝 Contributing
+
+Contributions, issues, and feature suggestions are welcome! Feel free to open an issue or submit a pull request on GitHub.
+
+---
+
+## 📄 License
+
+Distributed under the MIT License. See `LICENSE` for more information.
+
+Copyright (c) 2026
