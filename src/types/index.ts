@@ -1,4 +1,4 @@
-import { AccountResponse } from "@stellar/stellar-sdk/lib/horizon";
+import type { Horizon } from "@stellar/stellar-sdk";
 
 export type TxStatus = "idle" | "building" | "awaiting-signature" | "submitting" | "success" | "error";
 
@@ -9,7 +9,7 @@ export interface WalletState {
   network: string | null;
   networkPassphrase: string | null;
   balance: string | null; // Trimmed XLM string
-  rawAccount: AccountResponse | null;
+  rawAccount: Horizon.AccountResponse | null;
   isLoadingBalance: boolean;
   error: string | null;
 }
