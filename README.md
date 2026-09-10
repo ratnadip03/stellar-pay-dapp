@@ -40,7 +40,7 @@ Below is the verified sequence of screenshots showing Stellar Pay in action duri
 
 ### 1. 💸 Payment Form & Session Activity
 
-![Stellar Pay Payment Form](screenshots/01-payment-form-session-activity.png)
+![Stellar Pay — Payment Form and Session Activity](screenshots/Screenshot%20%28969%29.png)
 
 The payment interface allows the user to enter XLM payment details and shows the recent session activity.
 
@@ -48,7 +48,7 @@ The payment interface allows the user to enter XLM payment details and shows the
 
 ### 2. 🔎 StellarExpert On-Chain Verification
 
-![StellarExpert Verification](screenshots/02-stellarexpert-verification.png)
+![Stellar Pay — StellarExpert Verification](screenshots/Screenshot%20%28968%29.png)
 
 The completed Stellar Testnet transaction is independently visible on StellarExpert.
 
@@ -56,7 +56,7 @@ The completed Stellar Testnet transaction is independently visible on StellarExp
 
 ### 3. ✅ Transaction Successful
 
-![Stellar Pay Transaction Success](screenshots/03-transaction-success.png)
+![Stellar Pay — Transaction Successful](screenshots/Screenshot%20%28967%29.png)
 
 Stellar Pay displays the successful transaction result, recipient, transaction hash, and explorer link.
 
@@ -64,7 +64,7 @@ Stellar Pay displays the successful transaction result, recipient, transaction h
 
 ### 4. ✍️ Freighter Transaction Confirmation
 
-![Freighter Transaction Confirmation](screenshots/04-freighter-confirmation.png)
+![Stellar Pay — Freighter Confirmation](screenshots/Screenshot%20%28966%29.png)
 
 The transaction is presented to Freighter for user review and approval before signing.
 
@@ -72,7 +72,7 @@ The transaction is presented to Freighter for user review and approval before si
 
 ### 5. 📤 Payment Recipient & Amount
 
-![Stellar Pay Payment Recipient](screenshots/05-payment-recipient.png)
+![Stellar Pay — Payment Recipient](screenshots/Screenshot%20%28965%29.png)
 
 The recipient Stellar public address, XLM amount, and optional memo are entered before sending.
 
@@ -80,7 +80,7 @@ The recipient Stellar public address, XLM amount, and optional memo are entered 
 
 ### 6. 🔐 Connected Wallet & XLM Balance
 
-![Stellar Pay Connected Wallet](screenshots/06-wallet-connected-balance.png)
+![Stellar Pay — Connected Wallet and Balance](screenshots/Screenshot%20%28964%29.png)
 
 The connected Freighter wallet and current Stellar Testnet XLM balance are displayed.
 
@@ -88,9 +88,9 @@ The connected Freighter wallet and current Stellar Testnet XLM balance are displ
 
 ### 7. 🔗 Freighter Wallet Connection
 
-![Stellar Pay Freighter Connection](screenshots/07-freighter-connection.png)
+![Stellar Pay — Freighter Connection](screenshots/Screenshot%20%28963%29.png)
 
-Freighter requests permission to connect the wallet to Stellar Pay on Testnet.
+Freighter requests permission to connect the wallet to Stellar Pay on Stellar Testnet.
 
 ---
 
@@ -98,10 +98,10 @@ Freighter requests permission to connect the wallet to Stellar Pay on Testnet.
 
 For compatibility with automated evaluators and challenge specifications, the core workflow filenames are mapped directly from real application evidence:
 
-* `screenshots/01-wallet-connected.png` → Connected wallet view (`screenshots/06-wallet-connected-balance.png`)
-* `screenshots/02-balance-displayed.png` → Real XLM balance display (`screenshots/06-wallet-connected-balance.png`)
-* `screenshots/03-transaction-sent.png` → Payment form & session activity (`screenshots/01-payment-form-session-activity.png`)
-* `screenshots/04-transaction-result.png` → Transaction success notification (`screenshots/03-transaction-success.png`)
+* `screenshots/01-wallet-connected.png` → Connected wallet view (`screenshots/Screenshot%20%28964%29.png`)
+* `screenshots/02-balance-displayed.png` → Real XLM balance display (`screenshots/Screenshot%20%28964%29.png`)
+* `screenshots/03-transaction-sent.png` → Payment form & session activity (`screenshots/Screenshot%20%28969%29.png`)
+* `screenshots/04-transaction-result.png` → Transaction success notification (`screenshots/Screenshot%20%28967%29.png`)
 
 ---
 
